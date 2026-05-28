@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="kindred">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>KINDRED FLAME · hearth & kin · ember-woven goods</title>
+  <!-- Typography: cozy serif + soft sans with warmth -->
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=Petrona:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root[data-theme="kindred"] {
+      --bg: #1a1410;
+      --surface: #2a201b;
+      --surface-elevated: #3d2e25;
+      --text: #fdf0e3;
+      --text-soft: #e0c8b5;
+      --text-muted: #8a6e5c;
+      --accent: #e07a5f;
+      --accent-glow: #f0987a;
+      --accent-deep: #c45a3e;
+      --accent-subtle: #3d2a22;
+      --border-light: #4f3a2f;
+      --shadow-sm: 0 10px 24px -8px rgba(0,0,0,0.5);
+      --shadow-lg: 0 24px 40px -12px rgba(0,0,0,0.7);
+      --transition: 0.25s ease;
+      --radius-card: 28px 12px 28px 12px;
+      --grid-gap: 1.8rem;
+    }
+
+    :root[data-theme="ember"] {
+      --bg: #faf6f2;
+      --surface: #ffffff;
+      --surface-elevated: #fffcf8;
+      --text: #3a2a22;
+      --text-soft: #8b6e5c;
+      --text-muted: #d4c0b0;
+      --accent: #d46b4a;
+      --accent-glow: #e8906f;
+      --accent-deep: #b85438;
+      --accent-subtle: #f8ede6;
+      --border-light: #ead9ce;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Figtree', sans-serif;
+      scroll-behavior: smooth;
+      font-weight: 400;
+      line-height: 1.45;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 20px; }
+
+    /* header — hearth & home */
+    .kindred-header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      background: rgba(26, 20, 16, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--accent);
+      transition: var(--transition);
+    }
+    [data-theme="ember"] .kindred-header {
+      background: rgba(250, 246, 242, 0.96);
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-kindred {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .brand-kindred {
+      font-family: 'Petrona', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--accent-glow);
+      text-transform: lowercase;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .brand-kindred small {
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      margin-left: 8px;
+      color: var(--text-soft);
+    }
+
+    .nav-kindred-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+    }
+    .nav-kindred-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .nav-kindred-links a:hover { color: var(--accent-glow); border-bottom: 1px solid; padding-bottom: 2px; }
+
+    .kindred-utils {
+      display: flex;
+      gap: 1.4rem;
+      align-items: center;
+    }
+    #themeToggleKindred {
+      background: var(--accent-subtle);
+      border: none;
+      padding: 5px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .kindred-cart {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+    }
+    .cart-count-kindred {
+      background: var(--accent);
+      color: #1a1410;
+      font-size: 0.55rem;
+      font-weight: 800;
+      border-radius: 30px;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -8px;
+      right: -14px;
+    }
+
+    /* hero — warm hearth */
+    .hero-kindred {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1511299119002-ef5277532389?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: 50% 40%;
+    }
+    .hero-kindred::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, #1a1410cc 0%, #2a201bbb 100%);
+      z-index: 1;
+    }
+    .hero-kindred-content {
+      position: relative;
+      z-index: 2;
+      max-width: 660px;
+      padding: 0 6%;
+    }
+    .hero-kindred-badge {
+      font-size: 0.6rem;
+      letter-spacing: 5px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--accent-glow);
+      border-left: 4px solid var(--accent);
+      padding-left: 14px;
+    }
+    .hero-kindred-title {
+      font-family: 'Petrona', serif;
+      font-size: clamp(4rem, 12vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      margin-bottom: 0.8rem;
+      color: #fef0e4;
+      letter-spacing: -1px;
+    }
+    .hero-kindred-offer {
+      font-size: 0.7rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      background: rgba(0,0,0,0.4);
+      display: inline-block;
+      padding: 0.45rem 1.2rem;
+      backdrop-filter: blur(4px);
+      border-radius: 30px;
+    }
+
+    .btn-kindred {
+      background: var(--accent);
+      border: none;
+      padding: 0.85rem 2.2rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-block;
+      text-decoration: none;
+      color: #1a1410;
+      border-radius: 40px;
+    }
+    .btn-kindred:hover {
+      background: var(--accent-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(224, 122, 95, 0.3);
+    }
+
+    /* collection header */
+    .kindred-collection {
+      max-width: 1440px;
+      margin: 3rem auto 0.5rem auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.7rem;
+    }
+    .kindred-collection h2 {
+      font-family: 'Petrona', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+    }
+    .kindred-collection p {
+      color: var(--accent-glow);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+    }
+
+    /* product grid */
+    .grid-kindred {
+      max-width: 1440px;
+      margin: 2rem auto 5rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--grid-gap);
+    }
+
+    .kindred-card {
+      background: var(--surface);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .kindred-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-glow);
+      box-shadow: var(--shadow-lg);
+    }
+    .kindred-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--surface-elevated);
+    }
+    .kindred-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+    .kindred-card:hover .kindred-media img { transform: scale(1.03); }
+    .kindred-quick {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(42, 32, 27, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem;
+      opacity: 0;
+      transition: 0.2s;
+      text-align: center;
+    }
+    .kindred-card:hover .kindred-quick { opacity: 1; }
+    .kindred-quick button {
+      background: var(--accent);
+      border: none;
+      width: 90%;
+      padding: 0.6rem;
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #1a1410;
+      border-radius: 40px;
+    }
+    .kindred-quick button:hover { background: white; color: #2a201b; }
+
+    .kindred-info {
+      padding: 1rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kindred-detail h4 {
+      font-size: 0.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--accent-glow);
+      letter-spacing: 2px;
+    }
+    .kindred-detail h3 {
+      font-family: 'Petrona', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .kindred-price { text-align: right; }
+    .kindred-current { font-weight: 800; font-size: 1rem; }
+    .kindred-old { font-size: 0.65rem; text-decoration: line-through; color: var(--text-muted); margin-left: 0.3rem; }
+
+    /* cart — hearth basket */
+    .cart-overlay-kindred {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.96);
+      backdrop-filter: blur(20px);
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.2s;
+    }
+    .cart-overlay-kindred.active { visibility: visible; opacity: 1; }
+    .cart-kindred-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 520px;
+      height: 100vh;
+      background: var(--surface);
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow-lg);
+      z-index: 2001;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-overlay-kindred.active .cart-kindred-panel { transform: translateX(0); }
+    .cart-kindred-header {
+      padding: 1.4rem;
+      border-bottom: 1px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-kindred-header h3 {
+      font-family: 'Petrona', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent-glow);
+    }
+    .close-kindred-cart {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .cart-kindred-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .kindred-cart-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.8rem;
+      background: var(--surface-elevated);
+      border-left: 3px solid var(--accent);
+      position: relative;
+      border-radius: 20px;
+    }
+    .kindred-cart-img {
+      width: 70px;
+      height: 85px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .kindred-cart-details { flex: 1; }
+    .kindred-cart-name {
+      font-family: 'Petrona', serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .kindred-cart-price { font-size: 0.75rem; color: var(--accent-glow); margin-top: 4px; }
+    .kindred-cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .kindred-qty-btn {
+      background: var(--accent-subtle);
+      border: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .kindred-qty-btn:hover { background: var(--accent); color: #111; }
+    .kindred-remove {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .cart-kindred-footer {
+      padding: 1.5rem;
+      border-top: 2px solid var(--accent);
+      background: var(--surface);
+    }
+    .kindred-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .kindred-checkout {
+      width: 100%;
+      background: var(--accent);
+      border: none;
+      padding: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      border-radius: 40px;
+      transition: 0.2s;
+      color: #1a1410;
+    }
+    .kindred-checkout:hover { background: var(--accent-glow); transform: scale(0.98);}
+    .empty-kindred-cart { text-align: center; color: var(--text-soft); padding: 2rem; font-size: 0.75rem;}
+
+    footer {
+      background: var(--surface-elevated);
+      margin-top: 2rem;
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--accent);
+    }
+    .footer-kindred {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .footer-kindred-brand {
+      font-family: 'Petrona', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-glow);
+    }
+    .footer-kindred-regions {
+      font-size: 0.5rem;
+      letter-spacing: 3px;
+      color: var(--text-soft);
+      margin: 0.6rem 0 1rem;
+    }
+
+    /* modal */
+    .modal-kindred {
+      position: fixed;
+      inset: 0;
+      z-index: 2200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.97);
+      backdrop-filter: blur(24px);
+      transition: opacity 0.25s;
+    }
+    .modal-kindred-block {
+      background: var(--surface);
+      max-width: 530px;
+      width: 100%;
+      border-radius: 60px 12px 60px 12px;
+      border-top: 5px solid var(--accent);
+      padding: 2rem 2rem 2.2rem;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 35px 45px rgba(0,0,0,0.8);
+    }
+    .modal-kindred-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .modal-kindred-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(224, 122, 95, 0.2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      border-radius: 60px;
+      border: 1px solid var(--accent);
+      color: var(--accent-glow);
+    }
+    .modal-kindred-title {
+      font-family: 'Petrona', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-glow);
+      margin-bottom: 0.2rem;
+    }
+    .modal-kindred-desc {
+      color: var(--text-soft);
+      line-height: 1.5;
+      font-size: 0.85rem;
+      margin: 0.8rem 0;
+    }
+    .modal-kindred-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+    .btn-kindred-primary {
+      background: var(--accent);
+      border: none;
+      padding: 0.7rem 2rem;
+      font-weight: 800;
+      font-size: 0.7rem;
+      border-radius: 40px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      color: #1a1410;
+    }
+    .btn-kindred-secondary {
+      background: transparent;
+      border: 1px solid var(--accent);
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.7rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .modal-fade-kindred { opacity: 0; pointer-events: none; transition: opacity 0.2s; display: none; }
+
+    @media (max-width: 780px) {
+      .nav-kindred { flex-direction: column; gap: 0.6rem; }
+      .grid-kindred { gap: 1rem; }
+    }
+  </style>
+<!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SBJZ7C7VV0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SBJZ7C7VV0');
+  </script>
+
+  
+</head>
+<body>
+
+<!-- entry modal -->
+<div id="entryModalKindred" class="modal-kindred">
+  <div class="modal-kindred-block">
+    <button id="closeKindredModal" class="modal-kindred-close"><i class="fas fa-heart"></i></button>
+    <div class="modal-kindred-icon"><i class="fas fa-fire"></i></div>
+    <h2 class="modal-kindred-title">KINDRED</h2>
+    <p class="modal-kindred-desc">Hearth & kin · Ember-woven goods. Garments born from warmth, crafted for gathering. Enter the circle.</p>
+    <div class="modal-kindred-buttons">
+      <button id="enterKindredBtn" class="btn-kindred-primary">GATHER ROUND</button>
+      <button id="laterKindredBtn" class="btn-kindred-secondary">WANDER ON</button>
+    </div>
+  </div>
+</div>
+
+<header class="kindred-header">
+  <div class="nav-kindred">
+    <div class="brand-kindred">KINDRED<small>· FLAME</small></div>
+    <nav class="nav-kindred-links">
+      <a href="#shopKindred">HEARTH</a>
+      <a href="#shopKindred">KIN</a>
+      <a href="#shopKindred">EMBER</a>
+      <a href="#">STORY</a>
+    </nav>
+    <div class="kindred-utils">
+      <button id="themeToggleKindred">🔥 EMBER MODE</button>
+      <div class="kindred-cart" id="cartIconKindred">
+        <i class="fas fa-basket-shopping"></i>
+        <span class="cart-count-kindred" id="cartCountKindred">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero-kindred">
+    <div class="hero-kindred-content">
+      <div class="hero-kindred-badge">HEARTH · KIN · EMBER</div>
+      <h1 class="hero-kindred-title">KINDRED</h1>
+      <div class="hero-kindred-offer">First gathering: <strong>15% off</strong> your first hearth piece</div>
+      <a href="#shopKindred" class="btn-kindred">SHOP THE HEARTH →</a>
+    </div>
+  </section>
+
+  <div class="kindred-collection" id="shopKindred">
+    <h2>Hearth Archive · Ember Woven</h2>
+    <p>12 warming artifacts</p>
+  </div>
+
+  <div class="grid-kindred" id="productGridKindred"></div>
+</main>
+
+<footer>
+  <div class="footer-kindred">
+    <div class="footer-kindred-brand">KINDRED</div>
+    <div class="footer-kindred-regions">HEARTHLANDS · WINTER CIRCLES · HARVEST FIRES · SOLSTICE</div>
+    <p style="font-size:0.55rem; opacity:0.7;">© 2026 KINDRED — woven at the hearth, carried by kin.</p>
+  </div>
+</footer>
+
+<!-- CART -->
+<div id="cartOverlayKindred" class="cart-overlay-kindred">
+  <div class="cart-kindred-panel">
+    <div class="cart-kindred-header">
+      <h3>🔥 HEARTH BASKET</h3>
+      <button class="close-kindred-cart" id="closeCartKindred"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-kindred-items" id="cartItemsKindred">
+      <div class="empty-kindred-cart">Your hearth is cold.<br>Add warmth.</div>
+    </div>
+    <div class="cart-kindred-footer" id="cartFooterKindred" style="display: none;">
+      <div class="kindred-total"><span>Total (USD)</span><span id="cartTotalKindred">$0</span></div>
+      <button class="kindred-checkout" id="checkoutKindredBtn">🔥 SEAL THE HEARTH</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const kindredProducts = [
+    { id: 501, name: "Hearth Cloak", category: "OUTER", original: 870, price: 739, img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=687&auto=format&fit=crop", alt: "cloak" },
+    { id: 502, name: "Ember Tunic", category: "TOPS", original: 310, price: 263, img: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=687&auto=format&fit=crop", alt: "tunic" },
+    { id: 503, name: "Kinweave Shirt", category: "LAYER", original: 540, price: 459, img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=715&auto=format&fit=crop", alt: "shirt" },
+    { id: 504, name: "Homestead Pants", category: "BOTTOMS", original: 430, price: 365, img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=600&auto=format&fit=crop", alt: "pants" },
+    { id: 505, name: "Campfire Anorak", category: "KNIT", original: 750, price: 637, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600&auto=format&fit=crop", alt: "anorak" },
+    { id: 506, name: "Fireside Vest", category: "VEST", original: 380, price: 323, img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=687&auto=format&fit=crop", alt: "vest" },
+    { id: 507, name: "Tallow Smock", category: "SMOCK", original: 960, price: 816, img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=687&auto=format&fit=crop", alt: "smock" },
+    { id: 508, name: "Hearthkeeper Coat", category: "COAT", original: 1290, price: 1096, img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?q=80&w=2070&auto=format&fit=crop", alt: "coat" },
+    { id: 509, name: "Gatherer Cargo", category: "BOTTOMS", original: 500, price: 425, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=600&auto=format&fit=crop", alt: "cargo" },
+    { id: 510, name: "Storyteller Hood", category: "HOODIE", original: 300, price: 255, img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=764&auto=format&fit=crop", alt: "hoodie" },
+    { id: 511, name: "Winter Shell", category: "OUTER", original: 1650, price: 1402, img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=688&auto=format&fit=crop", alt: "shell" },
+    { id: 512, name: "Harvest Shacket", category: "SHIRT", original: 590, price: 501, img: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?q=80&w=687&auto=format&fit=crop", alt: "shacket" }
+  ];
+
+  let cartKindred = [];
+
+  const cartOverlayKindredDiv = document.getElementById('cartOverlayKindred');
+  const cartKindredIcon = document.getElementById('cartIconKindred');
+  const closeCartKindredBtn = document.getElementById('closeCartKindred');
+  const cartKindredContainer = document.getElementById('cartItemsKindred');
+  const cartKindredFooter = document.getElementById('cartFooterKindred');
+  const cartKindredTotalSpan = document.getElementById('cartTotalKindred');
+  const cartKindredCountSpan = document.getElementById('cartCountKindred');
+
+  function persistKindredCart() { localStorage.setItem('KINDRED_CART', JSON.stringify(cartKindred)); }
+  function loadKindredCart() {
+    const saved = localStorage.getItem('KINDRED_CART');
+    if (saved) cartKindred = JSON.parse(saved);
+    renderKindredCart();
+    updateKindredCount();
+  }
+  function updateKindredCount() { cartKindredCountSpan.innerText = cartKindred.reduce((sum,i)=>sum+i.qty,0); }
+
+  function renderKindredCart() {
+    if (!cartKindredContainer) return;
+    if (cartKindred.length === 0) {
+      cartKindredContainer.innerHTML = '<div class="empty-kindred-cart">Your hearth is cold.<br>Add warmth.</div>';
+      cartKindredFooter.style.display = 'none';
+      updateKindredCount(); persistKindredCart(); return;
+    }
+    cartKindredFooter.style.display = 'block';
+    let html = ''; let total = 0;
+    cartKindred.forEach(item => {
+      total += item.price * item.qty;
+      html += `<div class="kindred-cart-item" data-id="${item.id}">
+          <img class="kindred-cart-img" src="${item.img}" alt="${item.name}">
+          <div class="kindred-cart-details">
+            <div class="kindred-cart-name">${item.name}</div>
+            <div class="kindred-cart-price">$${item.price.toLocaleString()}</div>
+            <div class="kindred-cart-qty">
+              <button class="kindred-qty-dec" data-id="${item.id}">−</button>
+              <span>${item.qty}</span>
+              <button class="kindred-qty-inc" data-id="${item.id}">+</button>
+            </div>
+          </div>
+          <button class="kindred-remove" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+        </div>`;
+    });
+    cartKindredContainer.innerHTML = html;
+    cartKindredTotalSpan.innerText = `$${total.toLocaleString()}`;
+    document.querySelectorAll('.kindred-qty-dec').forEach(btn => btn.addEventListener('click', () => updateKindredQty(parseInt(btn.dataset.id), -1)));
+    document.querySelectorAll('.kindred-qty-inc').forEach(btn => btn.addEventListener('click', () => updateKindredQty(parseInt(btn.dataset.id), 1)));
+    document.querySelectorAll('.kindred-remove').forEach(btn => btn.addEventListener('click', () => removeKindredItem(parseInt(btn.dataset.id))));
+    updateKindredCount(); persistKindredCart();
+  }
+  function updateKindredQty(pid, delta) {
+    const idx = cartKindred.findIndex(i=>i.id===pid);
+    if(idx !== -1){
+      const nq = cartKindred[idx].qty + delta;
+      if(nq <= 0) cartKindred.splice(idx,1);
+      else cartKindred[idx].qty = nq;
+      renderKindredCart();
+    }
+  }
+  function removeKindredItem(pid){ cartKindred = cartKindred.filter(i=>i.id!==pid); renderKindredCart(); }
+  function addToKindredCart(pid){
+    const prod = kindredProducts.find(p=>p.id===pid);
+    if(!prod) return;
+    const existing = cartKindred.find(i=>i.id===pid);
+    if(existing) existing.qty += 1;
+    else cartKindred.push({id:prod.id, name:prod.name, price:prod.price, qty:1, img:prod.img});
+    renderKindredCart();
+    const btn = document.querySelector(`.kindred-add-${pid}`);
+    if(btn){ let old = btn.innerText; btn.innerText="✓ WARMED"; setTimeout(()=>btn.innerText=old,700); }
+    cartOverlayKindredDiv.classList.add('active');
+  }
+
+  function renderKindredProducts() {
+    const container = document.getElementById('productGridKindred');
+    if(!container) return;
+    container.innerHTML = '';
+    kindredProducts.forEach(p => {
+      const disc = Math.round(((p.original-p.price)/p.original)*100);
+      const card = document.createElement('div');
+      card.className = 'kindred-card';
+      card.innerHTML = `
+        <div class="kindred-media">
+          <img src="${p.img}" alt="${p.alt||p.name}" loading="lazy">
+          <div class="kindred-quick"><button class="kindred-add-${p.id} add-kindred-btn" data-id="${p.id}">🔥 ADD TO HEARTH</button></div>
+        </div>
+        <div class="kindred-info">
+          <div class="kindred-detail"><h4>${p.category}</h4><h3>${p.name}</h3></div>
+          <div class="kindred-price"><span class="kindred-current">$${p.price.toLocaleString()}</span><span class="kindred-old">$${p.original.toLocaleString()}</span><span style="font-size:0.55rem;color:var(--accent-glow);display:block;text-align:right;">-${disc}%</span></div>
+        </div>`;
+      container.appendChild(card);
+    });
+    document.querySelectorAll('.add-kindred-btn').forEach(btn => btn.addEventListener('click', (e)=>{ e.preventDefault(); addToKindredCart(parseInt(btn.dataset.id)); }));
+  }
+
+  function initThemeKindred() {
+    const stored = localStorage.getItem('KINDRED-theme');
+    let theme = stored || 'kindred';
+    document.documentElement.setAttribute('data-theme', theme);
+    const toggle = document.getElementById('themeToggleKindred');
+    if(toggle) toggle.textContent = theme === 'kindred' ? '🔥 EMBER MODE' : '🏠 HEARTH MODE';
+  }
+  function toggleThemeKindred() {
+    const curr = document.documentElement.getAttribute('data-theme');
+    const next = curr === 'kindred' ? 'ember' : 'kindred';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('KINDRED-theme', next);
+    const toggleBtn = document.getElementById('themeToggleKindred');
+    if(toggleBtn) toggleBtn.textContent = next === 'kindred' ? '🔥 EMBER MODE' : '🏠 HEARTH MODE';
+  }
+
+  const modalKindredElem = document.getElementById('entryModalKindred');
+  const enterKindred = document.getElementById('enterKindredBtn'), laterKindred = document.getElementById('laterKindredBtn'), closeKindredModalBtn = document.getElementById('closeKindredModal');
+  function closeKindredModalFunc() {
+    if(modalKindredElem){
+      modalKindredElem.classList.add('modal-fade-kindred');
+      setTimeout(()=>modalKindredElem.style.display='none',200);
+    }
+  }
+  if(enterKindred) enterKindred.addEventListener('click', closeKindredModalFunc);
+  if(laterKindred) laterKindred.addEventListener('click', closeKindredModalFunc);
+  if(closeKindredModalBtn) closeKindredModalBtn.addEventListener('click', closeKindredModalFunc);
+  if(modalKindredElem) modalKindredElem.addEventListener('click',(e)=>{ if(e.target===modalKindredElem) closeKindredModalFunc(); });
+
+  cartKindredIcon?.addEventListener('click',()=>cartOverlayKindredDiv.classList.add('active'));
+  closeCartKindredBtn?.addEventListener('click',()=>cartOverlayKindredDiv.classList.remove('active'));
+  cartOverlayKindredDiv?.addEventListener('click',(e)=>{ if(e.target===cartOverlayKindredDiv) cartOverlayKindredDiv.classList.remove('active'); });
+  document.getElementById('checkoutKindredBtn')?.addEventListener('click',()=>{ alert('Kindred Flame welcomes you home. Your hearth order is sealed with warmth.'); cartKindred=[]; renderKindredCart(); cartOverlayKindredDiv.classList.remove('active'); });
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click',function(e){ const hash=this.getAttribute('href'); if(hash==="#") return; const sec=document.querySelector(hash); if(sec){ e.preventDefault(); sec.scrollIntoView({behavior:'smooth'}); } }); });
+
+  renderKindredProducts();
+  initThemeKindred();
+  loadKindredCart();
+  document.getElementById('themeToggleKindred')?.addEventListener('click', toggleThemeKindred);
+</script>
+</body>
+</html>
